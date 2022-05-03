@@ -1,19 +1,23 @@
+import java.util.ArrayList;
+
 public class Recept{
     private String name;
-    private Ital[] hozvalok;
-
-    public Recept(String na,Ital[] valo){
+    private ArrayList<Ital> hozvalok;
+    public Recept(String na,ArrayList<Ital> valo){
         name = na;
         hozvalok = valo;
     }
 
     public String toString(){
-        return name + helpToString(hozvalok, hozvalok.length-1);
+        return name + helpToString(hozvalok, hozvalok.size()-1);
     }
-    private String helpToString(Ital[] hoz,int a){
+    private String helpToString(ArrayList<Ital> hoz,int a){
         if (a==0){
-            return hoz[a].getName();
-        }else{return hoz[a].getName()+" "+helpToString(hoz, a-1);}
+            return hoz.get(a).getName();
+        }else{return hoz.get(a).getName()+" "+helpToString(hoz, a-1);}
     }
 
+    public String getName(){return name;}
+
+    public ArrayList<Ital> getHozvalok(){return hozvalok;}
 }

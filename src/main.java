@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Scanner;
 
 public class main{
@@ -11,9 +12,9 @@ public class main{
         while(true){
             int a = segit(kezdo);
             if (a==1){italok.add(addItal());
-            }else if(a==2){
+            }else if(a==2){italok.remove(tor(italok));
             }else if (a==3){iratItal(italok);
-            }else if (a==4){
+            }else if (a==4){receptek.add(addRecept(italok));
             }else if (a==5){
             }else if (a==6){
             }else if (a==7){
@@ -35,6 +36,16 @@ public class main{
         }
     }
 
+    public static int help(int k, String u){
+        while(true){
+        System.out.print("Adja meg a "+u+" kivánt sorszámát:");
+            try {
+                int j = sc.nextInt();
+                if (j<=k&& j >0){return j-1;}else{System.out.println();System.out.println("A felsorort számokból válaszon!");}
+            } catch (Exception e) {System.out.println("");System.out.println("Számot adjon meg!");}
+        }
+    }
+
     public static Ital addItal(){
         while (true){
             System.out.println("Adja meg az ital nevét fajtáját és fokát alsó vonásal elválasztva'_'.(Pl:Borsodi_Ipa_4)");
@@ -50,9 +61,37 @@ public class main{
         }
     }
 
+    public static int tor(ArrayList<Ital> a){
+            iratItal(a);
+            return help(a.size(),"törölni");
+    }
+
     public static void iratItal(ArrayList<Ital> a){
         for (int i=0;i< a.size();i++){
-            System.out.println(a.get(i).toString());
+            System.out.println(i+1+"."+a.get(i).toString());
+        }
+    }
+
+    public static Recept addRecept(ArrayList<Ital> a){
+        System.out.println("Adja meg a recept nevét: ");
+        String na =sc.next();
+        ArrayList<Ital> hoz = new ArrayList<Ital>();
+        while (true){
+            iratItal(a);
+            int c = help(a.size(),"recepthez hozáadni");
+            if (hoz.contains(a.get(c))){
+                System.out.println("Ez már benne van a receptbe");
+            }else{hoz.add(a.get(c));}
+            if (hoz.size()>2){
+                System.out.println("1.Ujabb hozzávaló hozáadása");
+                System.out.println("2.Kilépés");
+                System.out.print("Valaszon:");
+                int h = help(2, "következő lépésének");
+                if (h+1==2){
+                    Recept z = new Recept(na, hoz);
+                    return z;
+                }
+            }
         }
     }
 }
