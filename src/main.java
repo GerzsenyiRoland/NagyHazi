@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Scanner;
 
 public class main{
@@ -9,19 +8,23 @@ public class main{
         String kezdo[] = {"1.Ital hozzáadása","2.Ital törlése","3.Italok kilisztázása","4.Recept létrehozáse","5.Recept törlése","6.Receptek kilistázása","7.Kilépés és mentés","8.Kilépés mentés nélkül"};
         ArrayList<Ital> italok = new ArrayList<Ital>();
         ArrayList<Recept> receptek = new ArrayList<Recept>();
+        italok = kibe.beItal();
+        receptek = kibe.beRecept();
         while(true){
             int a = segit(kezdo);
             if (a==1){italok.add(addItal());
-            }else if(a==2){italok.remove(tor(italok));
+            }else if(a==2){italok.remove(torItal(italok));
             }else if (a==3){iratItal(italok);
             }else if (a==4){receptek.add(addRecept(italok));
-            }else if (a==5){
-            }else if (a==6){
+            }else if (a==5){receptek.remove(torRecept(receptek));
+            }else if (a==6){iratRecept(receptek);
             }else if (a==7){
-            }else if (a==8){}
+                kibe.kiItal(italok);
+                kibe.kiRecept(receptek);
+                break;
+            }else if (a==8){break;}
         }
     }
-    
 
     public static int segit(String ku[]){
         for (int i=0;i<ku.length;i++){
@@ -61,7 +64,7 @@ public class main{
         }
     }
 
-    public static int tor(ArrayList<Ital> a){
+    public static int torItal(ArrayList<Ital> a){
             iratItal(a);
             return help(a.size(),"törölni");
     }
@@ -92,6 +95,25 @@ public class main{
                     return z;
                 }
             }
+        }
+    }
+
+    public static int torRecept(ArrayList<Recept> a){
+        iratRecept(a);
+        return help(a.size(), "törölni");
+    }
+
+    public static void iratRecept(ArrayList<Recept> a){
+        for (int i=0;i<a.size();i++){
+            String k = a.get(i).toString();
+            String j[]=k.split(" ");
+            System.out.println(i+1+"Neve: "+j[0]);
+            System.out.println("Hozávalók:");
+            for (int u=1;u<j.length;u++){
+                System.out.println(j[u]);
+            }
+            System.out.println(" ");
+
         }
     }
 }

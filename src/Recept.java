@@ -9,7 +9,7 @@ public class Recept{
     }
 
     public String toString(){
-        return name + helpToString(hozvalok, hozvalok.size()-1);
+        return name +" "+ helpToString(hozvalok, hozvalok.size()-1);
     }
     private String helpToString(ArrayList<Ital> hoz,int a){
         if (a==0){
