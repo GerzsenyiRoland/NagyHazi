@@ -50,11 +50,13 @@ public class main{
     }
 
     public static Ital addItal(){
+        String dd = sc.nextLine();
         while (true){
-            System.out.println("Adja meg az ital nevét fajtáját és fokát alsó vonásal elválasztva'_'.(Pl:Borsodi_Ipa_4)");
-            String dod = sc.next();
+            System.out.println("Adja meg az ital nevét fajtáját és fokát alsó vonásal elválasztva'_'.(Pl:Borsodi Ipa_Sör_4)");
+            String dod = sc.nextLine();
+            System.out.println(dod);
             String dodo[] = dod.split("_");
-            if (dodo.length<3 && dodo.length >3){
+            if (dodo.length<3 || dodo.length >3){
                 System.out.println("Helytelen formátumot adott meg.");
             }else{
                 try{
@@ -70,9 +72,11 @@ public class main{
     }
 
     public static void iratItal(ArrayList<Ital> a){
+        System.out.println("");
         for (int i=0;i< a.size();i++){
             System.out.println(i+1+"."+a.get(i).toString());
         }
+        System.out.println("");
     }
 
     public static Recept addRecept(ArrayList<Ital> a){
@@ -85,7 +89,7 @@ public class main{
             if (hoz.contains(a.get(c))){
                 System.out.println("Ez már benne van a receptbe");
             }else{hoz.add(a.get(c));}
-            if (hoz.size()>2){
+            if (hoz.size()>=2){
                 System.out.println("1.Ujabb hozzávaló hozáadása");
                 System.out.println("2.Kilépés");
                 System.out.print("Valaszon:");
@@ -106,7 +110,8 @@ public class main{
         for (int i=0;i<a.size();i++){
             String k = a.get(i).toString();
             String j[]=k.split("_");
-            System.out.println(i+1+"Neve: "+j[0]);
+            System.out.println("");
+            System.out.println(i+1+" Neve: "+j[0]);
             System.out.println("Hozávalók:");
             for (int u=1;u<j.length;u++){System.out.println(j[u]);}
             System.out.println(" ");

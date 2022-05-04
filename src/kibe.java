@@ -9,7 +9,7 @@ public class kibe implements Serializable {
             out.writeObject(a);
             out.close();
             f.close();
-        }catch(Exception ex){System.out.println("kiItalHiba!!");}
+        }catch(Exception ex){System.out.print("1");}
     }
 
     public static void kiRecept(ArrayList<Recept> a){
@@ -19,7 +19,7 @@ public class kibe implements Serializable {
             out.writeObject(a);
             out.close();
             f.close();
-        }catch(Exception ex){System.out.println("kiReceptHiba!!");}
+        }catch(Exception ex){System.out.print("2");}
     }
 
     public static ArrayList<Ital> beItal(){
@@ -27,14 +27,12 @@ public class kibe implements Serializable {
         try {
             FileInputStream f = new FileInputStream(new File("Ital.txt"));
             ObjectInputStream in = new ObjectInputStream(f);
-            try{
-                k = (ArrayList<Ital>)in.readObject();
-                in.close();
-            }catch(Exception a){System.out.println("Hülye vagyok!!");}
+            k = (ArrayList<Ital>)in.readObject();
+            in.close();
             f.close();
             return k;
-        } catch(IOException ex) {System.out.println("beItalHiba!!");
-        } //catch (ClassNotFoundException e) {System.out.println("BeItalClassHiba!");}
+        } catch(IOException ex) {System.out.print("3");
+        } catch (ClassNotFoundException e) {System.out.print("4");}
         return k;
     }
 
@@ -47,8 +45,8 @@ public class kibe implements Serializable {
             in.close();
             f.close();
             return k;
-        } catch(IOException ex) {System.out.println("BeReceptHiba!!");
-        } catch (ClassNotFoundException e) {System.out.println("BeReceptClassHiba!");}
+        } catch(IOException ex) {System.out.print("5");
+        } catch (ClassNotFoundException e) {System.out.print("6");}
         return k;
     }
     

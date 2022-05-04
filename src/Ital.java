@@ -1,4 +1,3 @@
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class Ital implements Serializable{
@@ -14,8 +13,6 @@ public class Ital implements Serializable{
         return ("Fajtája: "+fajta+", Neve: "+name+", Fokszáma: "+fok);
     }
     
-    public ObjectOutputStream os;
-
     public String getName(){return name;}
 
     public String getFajta(){return fajta;}
