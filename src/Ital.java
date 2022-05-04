@@ -1,4 +1,7 @@
-public class Ital {
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+public class Ital implements Serializable{
     private String name;
     private String fajta;
     private double fok;
@@ -11,6 +14,8 @@ public class Ital {
         return ("Fajtája: "+fajta+", Neve: "+name+", Fokszáma: "+fok);
     }
     
+    public ObjectOutputStream os;
+
     public String getName(){return name;}
 
     public String getFajta(){return fajta;}

@@ -1,6 +1,7 @@
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Recept{
+public class Recept implements Serializable{
     private String name;
     private ArrayList<Ital> hozvalok;
     public Recept(String na,ArrayList<Ital> valo){

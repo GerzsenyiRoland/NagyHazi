@@ -8,7 +8,8 @@ public class kibe implements Serializable {
             ObjectOutputStream out = new ObjectOutputStream(f);
             out.writeObject(a);
             out.close();
-        }catch(Exception ex){System.out.println("Hiba!!");}
+            f.close();
+        }catch(Exception ex){System.out.println("kiItalHiba!!");}
     }
 
     public static void kiRecept(ArrayList<Recept> a){
@@ -17,32 +18,37 @@ public class kibe implements Serializable {
             ObjectOutputStream out = new ObjectOutputStream(f);
             out.writeObject(a);
             out.close();
-        }catch(Exception ex){System.out.println("Hiba!!");}
+            f.close();
+        }catch(Exception ex){System.out.println("kiReceptHiba!!");}
     }
 
     public static ArrayList<Ital> beItal(){
         ArrayList<Ital> k = new ArrayList<Ital>();
         try {
-            FileInputStream f = new FileInputStream("Ital.txt");
+            FileInputStream f = new FileInputStream(new File("Ital.txt"));
             ObjectInputStream in = new ObjectInputStream(f);
-            k = (ArrayList<Ital>)in.readObject();
-            in.close();
+            try{
+                k = (ArrayList<Ital>)in.readObject();
+                in.close();
+            }catch(Exception a){System.out.println("Hülye vagyok!!");}
+            f.close();
             return k;
-        } catch(IOException ex) {System.out.println("Hiba!!");
-        } catch (ClassNotFoundException e) {System.out.println("Hiba!");}
+        } catch(IOException ex) {System.out.println("beItalHiba!!");
+        } //catch (ClassNotFoundException e) {System.out.println("BeItalClassHiba!");}
         return k;
     }
 
     public static ArrayList<Recept> beRecept(){
         ArrayList<Recept> k = new ArrayList<Recept>();
         try {
-            FileInputStream f = new FileInputStream("Recept.txt");
+            FileInputStream f = new FileInputStream(new File("Recept.txt"));
             ObjectInputStream in = new ObjectInputStream(f);
             k = (ArrayList<Recept>)in.readObject();
             in.close();
+            f.close();
             return k;
-        } catch(IOException ex) {System.out.println("Hiba!!");
-        } catch (ClassNotFoundException e) {System.out.println("Hiba!");}
+        } catch(IOException ex) {System.out.println("BeReceptHiba!!");
+        } catch (ClassNotFoundException e) {System.out.println("BeReceptClassHiba!");}
         return k;
     }
     

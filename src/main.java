@@ -32,7 +32,7 @@ public class main{
             System.out.print("Adja meg a választását: ");
             try{
             int a = sc.nextInt();
-            if (a<=ku.length-1 && a >0){return a;} 
+            if (a<=ku.length && a >0){return a;} 
             else{System.out.println("A felsorolt számokból adjon meg.");}
             }catch(Exception a){System.out.println("Számotadjon meg!");}
         }
