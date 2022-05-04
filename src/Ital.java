@@ -4,9 +4,7 @@ public class Ital {
     private double fok;
 
     public Ital(String na,String faj,double fo) {
-        name = na;
-        fajta = faj;
-        fok = fo;
+        name = na; fajta = faj; fok = fo;
     }
 
     public String toString(){

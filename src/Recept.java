@@ -9,12 +9,12 @@ public class Recept{
     }
 
     public String toString(){
-        return name +" "+ helpToString(hozvalok, hozvalok.size()-1);
+        return name +"_"+ helpToString(hozvalok, hozvalok.size()-1);
     }
     private String helpToString(ArrayList<Ital> hoz,int a){
         if (a==0){
             return hoz.get(a).getName();
-        }else{return hoz.get(a).getName()+" "+helpToString(hoz, a-1);}
+        }else{return hoz.get(a).getName()+"_"+helpToString(hoz, a-1);}
     }
 
     public String getName(){return name;}

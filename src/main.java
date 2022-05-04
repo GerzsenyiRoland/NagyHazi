@@ -6,10 +6,8 @@ public class main{
 
      public static void main(String agrs[]){
         String kezdo[] = {"1.Ital hozzáadása","2.Ital törlése","3.Italok kilisztázása","4.Recept létrehozáse","5.Recept törlése","6.Receptek kilistázása","7.Kilépés és mentés","8.Kilépés mentés nélkül"};
-        ArrayList<Ital> italok = new ArrayList<Ital>();
-        ArrayList<Recept> receptek = new ArrayList<Recept>();
-        italok = kibe.beItal();
-        receptek = kibe.beRecept();
+        ArrayList<Ital> italok = new ArrayList<Ital>(kibe.beItal());
+        ArrayList<Recept> receptek = new ArrayList<Recept>(kibe.beRecept());
         while(true){
             int a = segit(kezdo);
             if (a==1){italok.add(addItal());
@@ -34,7 +32,8 @@ public class main{
             System.out.print("Adja meg a választását: ");
             try{
             int a = sc.nextInt();
-            if (a<=ku.length-1 && a >0){return a;} else{System.out.println("A felsorolt számokból adjon meg.");}
+            if (a<=ku.length-1 && a >0){return a;} 
+            else{System.out.println("A felsorolt számokból adjon meg.");}
             }catch(Exception a){System.out.println("Számotadjon meg!");}
         }
     }
@@ -44,7 +43,8 @@ public class main{
         System.out.print("Adja meg a "+u+" kivánt sorszámát:");
             try {
                 int j = sc.nextInt();
-                if (j<=k&& j >0){return j-1;}else{System.out.println();System.out.println("A felsorort számokból válaszon!");}
+                if (j<=k&& j >0){return j-1;}
+                else{System.out.println();System.out.println("A felsorort számokból válaszon!");}
             } catch (Exception e) {System.out.println("");System.out.println("Számot adjon meg!");}
         }
     }
@@ -54,13 +54,13 @@ public class main{
             System.out.println("Adja meg az ital nevét fajtáját és fokát alsó vonásal elválasztva'_'.(Pl:Borsodi_Ipa_4)");
             String dod = sc.next();
             String dodo[] = dod.split("_");
-            if (dodo.length<3){System.out.println("Nem adot meg elég adatot vagy helytelen formátumot használt.");}else{
+            if (dodo.length<3 && dodo.length >3){
+                System.out.println("Helytelen formátumot adott meg.");
+            }else{
                 try{
-                    Ital u = new Ital(dodo[0],dodo[1], Double.parseDouble(dodo[2]));
-                    return u;
+                    return new Ital(dodo[0],dodo[1], Double.parseDouble(dodo[2]));
                 }catch(Exception a){System.out.println("Számot adjon meg az utolsó adatnak.");}
             }
-
         }
     }
 
@@ -91,8 +91,7 @@ public class main{
                 System.out.print("Valaszon:");
                 int h = help(2, "következő lépésének");
                 if (h+1==2){
-                    Recept z = new Recept(na, hoz);
-                    return z;
+                    return new Recept(na, hoz);
                 }
             }
         }
@@ -106,14 +105,11 @@ public class main{
     public static void iratRecept(ArrayList<Recept> a){
         for (int i=0;i<a.size();i++){
             String k = a.get(i).toString();
-            String j[]=k.split(" ");
+            String j[]=k.split("_");
             System.out.println(i+1+"Neve: "+j[0]);
             System.out.println("Hozávalók:");
-            for (int u=1;u<j.length;u++){
-                System.out.println(j[u]);
-            }
+            for (int u=1;u<j.length;u++){System.out.println(j[u]);}
             System.out.println(" ");
-
         }
     }
 }
