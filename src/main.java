@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class main{
      static Scanner sc = new Scanner(System.in);
-
      public static void main(String agrs[]){
         String kezdo[] = {"1.Ital hozzáadása","2.Ital törlése","3.Italok kilisztázása","4.Recept létrehozáse","5.Recept törlése","6.Receptek kilistázása","7.Kilépés és mentés","8.Kilépés mentés nélkül"};
         ArrayList<Ital> italok = new ArrayList<Ital>(kibe.beItal());
@@ -22,6 +21,14 @@ public class main{
                 break;
             }else if (a==8){break;}
         }
+    }
+
+    public static ArrayList<String> fajok(ArrayList<Ital> h){
+        ArrayList<String> k = new ArrayList<String>();
+        for (int i=0;i<h.size();i++){
+            if (k.contains(h.get(i).getFajta())){}else{k.add(h.get(i).getFajta());}
+        }
+        return k;
     }
 
     public static int segit(String ku[]){
@@ -72,9 +79,22 @@ public class main{
     }
 
     public static void iratItal(ArrayList<Ital> a){
+        ArrayList<String> fajta = new ArrayList<String>(fajok(a));
+        for (int u=0;u<fajta.size();u++){
+            System.out.println(fajta.get(u));
+        }
+        System.out.println(fajta.size()+1+"Mindet");
+        int h = help(fajta.size()+1, "tipust");
+        int z = 1;
         System.out.println("");
-        for (int i=0;i< a.size();i++){
-            System.out.println(i+1+"."+a.get(i).toString());
+        if (h==fajta.size()+1){
+            for (int i=0;i<a.size();i++){System.out.println(i+1+"."+a.get(i).getFajta());}
+        }else {for (int i=0;i< a.size();i++){
+                if (fajta.get(h).equals(a.get(i).getFajta())){
+                    System.out.println(z+"."+a.get(i).toString());
+                    z++;
+                }
+            }
         }
         System.out.println("");
     }
