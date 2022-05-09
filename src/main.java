@@ -41,10 +41,10 @@ public class main{
         while (true){
             System.out.print("Adja meg a választását: ");
             try{
-            int sorszam = sc.nextInt();
-            if (sorszam<=kezdo.length && sorszam >0){return sorszam;} 
-            else{System.out.println("A felsorolt számokból adjon meg.");}
-            }catch(Exception a){System.out.println("Számotadjon meg!");}
+                int sorszam = sc.nextInt();
+                if (sorszam<=kezdo.length && sorszam >0){return sorszam;} 
+                else{System.out.println("A felsorolt számokból adjon meg.");}
+            }catch(Exception a){System.out.println("Számotadjon meg!");String befogo = sc.nextLine();}
         }
     }
 
@@ -56,7 +56,7 @@ public class main{
                 int sorszam = sc.nextInt();
                 if (sorszam<=length&& sorszam >0){return sorszam-1;}
                 else{System.out.println();System.out.println("A felsorort számokból válaszon!");}
-            } catch (Exception e) {System.out.println("");System.out.println("Számot adjon meg!");}
+            } catch (Exception e) {System.out.println("");System.out.println("Számot adjon meg!");String befogo = sc.nextLine();}
         }
     }
 
@@ -173,5 +173,6 @@ public class main{
                 System.out.println(" ");
             }
         }
+
     }
 }
