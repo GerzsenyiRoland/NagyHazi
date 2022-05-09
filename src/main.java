@@ -3,138 +3,175 @@ import java.util.Scanner;
 
 public class main{
      static Scanner sc = new Scanner(System.in);
+     //A main medódus a főprogram ami elosztja a a feladatokat.
      public static void main(String agrs[]){
         String kezdo[] = {"1.Ital hozzáadása","2.Ital törlése","3.Italok kilisztázása","4.Recept létrehozáse","5.Recept törlése","6.Receptek kilistázása","7.Kilépés és mentés","8.Kilépés mentés nélkül"};
         ArrayList<Ital> italok = new ArrayList<Ital>(kibe.beItal());
         ArrayList<Recept> receptek = new ArrayList<Recept>(kibe.beRecept());
         while(true){
-            int a = segit(kezdo);
-            if (a==1){italok.add(addItal());
-            }else if(a==2){italok.remove(torItal(italok));
-            }else if (a==3){iratItal(italok);
-            }else if (a==4){receptek.add(addRecept(italok));
-            }else if (a==5){receptek.remove(torRecept(receptek));
-            }else if (a==6){iratRecept(receptek);
-            }else if (a==7){
+            int sorszam = fosegit(kezdo);
+            if (sorszam==1){italok.add(addItal());
+            }else if(sorszam==2){italok.remove(torItal(italok));
+            }else if (sorszam==3){iratItal(italok);
+            }else if (sorszam==4){receptek.add(addRecept(italok));
+            }else if (sorszam==5){receptek.remove(torRecept(receptek));
+            }else if (sorszam==6){iratRecept(receptek);
+            }else if (sorszam==7){
                 kibe.kiItal(italok);
                 kibe.kiRecept(receptek);
                 break;
-            }else if (a==8){break;}
+            }else if (sorszam==8){break;}
         }
     }
 
-    public static ArrayList<String> fajok(ArrayList<Ital> h){
-        ArrayList<String> k = new ArrayList<String>();
-        for (int i=0;i<h.size();i++){
-            if (k.contains(h.get(i).getFajta())){}else{k.add(h.get(i).getFajta());}
+    //fajok medódus meg kapja az italokat és vissza adja egy listába hogy milyen fajta italok vannak.
+    public static ArrayList<String> fajok(ArrayList<Ital> italok){
+        ArrayList<String> fajok = new ArrayList<String>();
+        for (int i=0;i<italok.size();i++){
+            if (fajok.contains(italok.get(i).getFajta())){}else{fajok.add(italok.get(i).getFajta());}
         }
-        return k;
+        return fajok;
     }
 
-    public static int segit(String ku[]){
-        for (int i=0;i<ku.length;i++){
-            System.out.println(ku[i]);
+    //fosegit medódus kilistáza a funkciókat és bekéri hogy melyiket szeretné végre hajtani.
+    public static int fosegit(String kezdo[]){
+        for (int i=0;i<kezdo.length;i++){
+            System.out.println(kezdo[i]);
         }
         while (true){
             System.out.print("Adja meg a választását: ");
             try{
-            int a = sc.nextInt();
-            if (a<=ku.length && a >0){return a;} 
+            int sorszam = sc.nextInt();
+            if (sorszam<=kezdo.length && sorszam >0){return sorszam;} 
             else{System.out.println("A felsorolt számokból adjon meg.");}
             }catch(Exception a){System.out.println("Számotadjon meg!");}
         }
     }
 
-    public static int help(int k, String u){
+    //help medódus bekér számot és meg nézi hogy meg felelő a paraméterezése és vissza adja a számot.
+    public static int help(int length, String koment){
         while(true){
-        System.out.print("Adja meg a "+u+" kivánt sorszámát:");
+        System.out.print("Adja meg a "+koment+" kivánt sorszámát:");
             try {
-                int j = sc.nextInt();
-                if (j<=k&& j >0){return j-1;}
+                int sorszam = sc.nextInt();
+                if (sorszam<=length&& sorszam >0){return sorszam-1;}
                 else{System.out.println();System.out.println("A felsorort számokból válaszon!");}
             } catch (Exception e) {System.out.println("");System.out.println("Számot adjon meg!");}
         }
     }
 
+    //addItal medódus beolvas egy sort (Név_Fajta_Fok) formátumba és meg töri a '_' mentén és ezek vissza adja Ital ként.
     public static Ital addItal(){
-        String dd = sc.nextLine();
+        String hibakezelés = sc.nextLine();
         while (true){
             System.out.println("Adja meg az ital nevét fajtáját és fokát alsó vonásal elválasztva'_'.(Pl:Borsodi Ipa_Sör_4)");
-            String dod = sc.nextLine();
-            System.out.println(dod);
-            String dodo[] = dod.split("_");
-            if (dodo.length<3 || dodo.length >3){
+            String sor = sc.nextLine();
+            System.out.println(sor);
+            String sortort[] = sor.split("_");
+            if (sortort.length<3 || sortort.length >3){
                 System.out.println("Helytelen formátumot adott meg.");
             }else{
                 try{
-                    return new Ital(dodo[0],dodo[1], Double.parseDouble(dodo[2]));
+                    return new Ital(sortort[0],sortort[1], Double.parseDouble(sortort[2]));
                 }catch(Exception a){System.out.println("Számot adjon meg az utolsó adatnak.");}
             }
         }
     }
-
-    public static int torItal(ArrayList<Ital> a){
-            iratItal(a);
-            return help(a.size(),"törölni");
+    /*torItal medódus meg kapja az italokat és azokat kiiratja a 'iratItal' medótusal 
+    és a help medódusal bekér egy számot és visszaadja azt a számot */
+    public static int torItal(ArrayList<Ital> italok){
+            iratItal(italok);
+            return help(italok.size(),"törölni");
     }
 
-    public static void iratItal(ArrayList<Ital> a){
-        ArrayList<String> fajta = new ArrayList<String>(fajok(a));
+    //A segitIratItal medódus meg kapja a italokat ki iratja a fajtákat és abból bekéri az egyiket és vissza adja a fajtát.
+    public static String segitIratItal(ArrayList<Ital> italok){
+        ArrayList<String> fajta = new ArrayList<String>(fajok(italok));
         for (int u=0;u<fajta.size();u++){
-            System.out.println(fajta.get(u));
+            System.out.println(u+1+"."+fajta.get(u));
         }
-        System.out.println(fajta.size()+1+"Mindet");
-        int h = help(fajta.size()+1, "tipust");
-        int z = 1;
+        System.out.println(fajta.size()+1+"."+"Mindet");
+        int melyikfajta = help(fajta.size()+1, "tipust");
+        if (fajta.size() == melyikfajta){return "Mind";}else{return fajta.get(melyikfajta);}
+    }
+
+    public static void ir(ArrayList<Ital> italok,String fajta){
+        int sorszam1 = 1;
         System.out.println("");
-        if (h==fajta.size()+1){
-            for (int i=0;i<a.size();i++){System.out.println(i+1+"."+a.get(i).getFajta());}
-        }else {for (int i=0;i< a.size();i++){
-                if (fajta.get(h).equals(a.get(i).getFajta())){
-                    System.out.println(z+"."+a.get(i).toString());
-                    z++;
+        if (fajta=="Mind"){for (int i=0;i<italok.size();i++){System.out.println(i+1+"."+italok.get(i).toString());}
+        }else {for (int i=0;i< italok.size();i++){
+                if (fajta.equals(italok.get(i).getFajta())){
+                    System.out.println(sorszam1+"."+italok.get(i).toString());
+                    sorszam1++;
                 }
             }
         }
         System.out.println("");
     }
 
-    public static Recept addRecept(ArrayList<Ital> a){
+    //iratItal medódus meg hivja a 'segitIratItal' medódus és az abból kapot fajtát iratja átadja a 'ir' medódusnak.
+    public static void iratItal(ArrayList<Ital> italok){
+        String melyikfajta = segitIratItal(italok);
+        ir(italok, melyikfajta);
+    }
+
+    //A ItalVissza medódus ki iratja a italokat és be kér egy sorszámot és azt a italt vissza adja.
+    public static Ital Italvissza(ArrayList<Ital> italok){
+        String melyikfajta = segitIratItal(italok);
+        ir(italok, melyikfajta);
+        int sorszam = help(italok.size(),"recepthez hozáadni")+1;
+        int sorszam1=0;
+        for (int i = 0;i<italok.size();i++){
+            if (italok.get(i).getFajta().equals(melyikfajta)){
+                sorszam1++;
+                if (sorszam==sorszam1){return italok.get(i);}
+            }
+        }
+        return null;
+    }
+
+    /*A addRecept medódus bekéri a recept nevét, és utána kilistáza a az italokat a iratItal medódusal
+    utána meg kérdi hogy melyik italt adja hozzá és ha van már benn olyan akkor kér egy másikat 
+    és legalább két italnak kell benne szerepelnie*/
+    public static Recept addRecept(ArrayList<Ital> italok){
         System.out.println("Adja meg a recept nevét: ");
-        String na =sc.next();
-        ArrayList<Ital> hoz = new ArrayList<Ital>();
+        String receptnev =sc.next();
+        ArrayList<Ital> hozzavalok = new ArrayList<Ital>();
         while (true){
-            iratItal(a);
-            int c = help(a.size(),"recepthez hozáadni");
-            if (hoz.contains(a.get(c))){
+            Ital ital = Italvissza(italok);
+            if (hozzavalok.contains(ital)){
                 System.out.println("Ez már benne van a receptbe");
-            }else{hoz.add(a.get(c));}
-            if (hoz.size()>=2){
+            }else{hozzavalok.add(ital);}
+            if (hozzavalok.size()>=2){
                 System.out.println("1.Ujabb hozzávaló hozáadása");
                 System.out.println("2.Kilépés");
-                System.out.print("Valaszon:");
                 int h = help(2, "következő lépésének");
                 if (h+1==2){
-                    return new Recept(na, hoz);
+                    return new Recept(receptnev, hozzavalok);
                 }
             }
         }
     }
 
-    public static int torRecept(ArrayList<Recept> a){
-        iratRecept(a);
-        return help(a.size(), "törölni");
+    //A torRecept kiiratatja a recepteket a 'iratRecept' medódusal és be kéri a törölni kévánt recept sorszámát és vissza adja azt
+    public static int torRecept(ArrayList<Recept> recept){
+        iratRecept(recept);
+        return help(recept.size(), "törölni");
     }
 
-    public static void iratRecept(ArrayList<Recept> a){
-        for (int i=0;i<a.size();i++){
-            String k = a.get(i).toString();
-            String j[]=k.split("_");
-            System.out.println("");
-            System.out.println(i+1+" Neve: "+j[0]);
-            System.out.println("Hozávalók:");
-            for (int u=1;u<j.length;u++){System.out.println(j[u]);}
-            System.out.println(" ");
+    //A iratRecept medódus kiirja a képernyőre a recepteket.
+    public static void iratRecept(ArrayList<Recept> recept){
+        if (recept.size() == 0 ){System.out.println("Nincs recept");
+        }else{
+            for (int i=0;i<recept.size();i++){
+                String sor = recept.get(i).toString();
+                String sortor[]=sor.split("_");
+                System.out.println("");
+                System.out.println(i+1+" Neve: "+sortor[0]);
+                System.out.println("Hozávalók:");
+                for (int u=1;u<sortor.length;u++){System.out.println(sortor[u]);}
+                System.out.println(" ");
+            }
         }
     }
 }

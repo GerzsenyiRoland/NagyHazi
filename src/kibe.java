@@ -2,52 +2,56 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class kibe implements Serializable {
-    public static void kiItal(ArrayList<Ital> a){
+    //A kiItal medódus meg kapja a italokat és ki irja a 'Ital.txt' file-ba.
+    public static void kiItal(ArrayList<Ital> italok){
         try {
             FileOutputStream f = new FileOutputStream("Ital.txt");
             ObjectOutputStream out = new ObjectOutputStream(f);
-            out.writeObject(a);
+            out.writeObject(italok);
             out.close();
             f.close();
-        }catch(Exception ex){System.out.print("1");}
+        }catch(Exception ex){System.out.print("A kiiratásal hiba történt.");}
     }
 
-    public static void kiRecept(ArrayList<Recept> a){
+    //A kiRecept medódus meg kapja a recepteket és ki irja a 'Recept.txt' file-ba.
+    public static void kiRecept(ArrayList<Recept> recept){
         try {
             FileOutputStream f = new FileOutputStream("Recept.txt");
             ObjectOutputStream out = new ObjectOutputStream(f);
-            out.writeObject(a);
+            out.writeObject(recept);
             out.close();
             f.close();
-        }catch(Exception ex){System.out.print("2");}
+        }catch(Exception ex){System.out.print("A ki iratásal hiba történt");}
     }
 
+    //A beItal medódus meg nyitja a 'Ital.txt' file-t és benne lévő adator ki olvasa és átadja egy ArrayLista által.
     public static ArrayList<Ital> beItal(){
-        ArrayList<Ital> k = new ArrayList<Ital>();
+        ArrayList<Ital> italok = new ArrayList<Ital>();
         try {
             FileInputStream f = new FileInputStream(new File("Ital.txt"));
             ObjectInputStream in = new ObjectInputStream(f);
-            k = (ArrayList<Ital>)in.readObject();
+            italok = (ArrayList<Ital>)in.readObject();
             in.close();
             f.close();
-            return k;
-        } catch(IOException ex) {System.out.print("3");
-        } catch (ClassNotFoundException e) {System.out.print("4");}
-        return k;
+            return italok;
+        } catch(IOException ex) {System.out.print("Nem sikerült a beolvasása");
+        } catch (ClassNotFoundException e) {System.out.print("Nem tatálható a 'Ital.txt' file.");}
+        return italok;
     }
 
+    //A beRecept medódus meg nyitja a 'Recept.txt' file-t és benne lévő adator ki olvasa és átadja egy ArrayLista által.
     public static ArrayList<Recept> beRecept(){
-        ArrayList<Recept> k = new ArrayList<Recept>();
+        ArrayList<Recept> recept = new ArrayList<Recept>();
         try {
             FileInputStream f = new FileInputStream(new File("Recept.txt"));
             ObjectInputStream in = new ObjectInputStream(f);
-            k = (ArrayList<Recept>)in.readObject();
+            recept = (ArrayList<Recept>)in.readObject();
             in.close();
             f.close();
-            return k;
-        } catch(IOException ex) {System.out.print("5");
-        } catch (ClassNotFoundException e) {System.out.print("6");}
-        return k;
+            return recept;
+        } catch(IOException ex) {System.out.print("Nem sikerült a beolvasás");
+        } catch (ClassNotFoundException e) {System.out.print("Nem található a 'Recept.txt' file");}
+        return recept;
     }
     
 }
