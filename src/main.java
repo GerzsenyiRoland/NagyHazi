@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//https://github.com/GerzsenyiRoland/NagyHazi.git
+
 public class main{
      static Scanner sc = new Scanner(System.in);
      //A main medódus a főprogram ami elosztja a a feladatokat.
