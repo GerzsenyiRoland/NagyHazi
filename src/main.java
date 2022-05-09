@@ -3,8 +3,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import org.junit.Before;
-import org.junit.Test;
+//https://github.com/GerzsenyiRoland/NagyHazi.git
 
 public class main{
      static Scanner sc = new Scanner(System.in);
@@ -46,10 +45,10 @@ public class main{
         while (true){
             System.out.print("Adja meg a választását: ");
             try{
-            int sorszam = sc.nextInt();
-            if (sorszam<=kezdo.length && sorszam >0){return sorszam;} 
-            else{System.out.println("A felsorolt számokból adjon meg.");}
-            }catch(Exception a){System.out.println("Számotadjon meg!");}
+                int sorszam = sc.nextInt();
+                if (sorszam<=kezdo.length && sorszam >0){return sorszam;} 
+                else{System.out.println("A felsorolt számokból adjon meg.");}
+            }catch(Exception a){System.out.println("Számotadjon meg!");String befogo = sc.nextLine();}
         }
     }
 
@@ -61,7 +60,7 @@ public class main{
                 int sorszam = sc.nextInt();
                 if (sorszam<=length&& sorszam >0){return sorszam-1;}
                 else{System.out.println();System.out.println("A felsorort számokból válaszon!");}
-            } catch (Exception e) {System.out.println("");System.out.println("Számot adjon meg!");}
+            } catch (Exception e) {System.out.println("");System.out.println("Számot adjon meg!");String befogo = sc.nextLine();}
         }
     }
 
@@ -178,23 +177,5 @@ public class main{
                 System.out.println(" ");
             }
         }
-    }  
-
-    @Test
-    public void test(){
-        Ital f1 = new Ital("Borsodi", "Sor", 4);
-        Ital f2 = new Ital("Dreher","Sor",4);
-        ArrayList<Ital> f3 = new ArrayList<Ital>();
-        Recept f4; 
-
-        f3.add(f1);
-        f3.add(f2);
-        f4 = new Recept("Sorkombo", f3);
-        assertEquals("Hiba", "Sor", f1.getFajta());
-        assertEquals("Hiba", "Sorkombo",f4.getName());
-        assertEquals("Hiba", 4,0, f2.getFok());
-        assertEquals("Hiba", "Borsodi", f1.getName());
-        assertEquals("Hiba", f1,f4.getHozvalok().get(0));
-        assertEquals("Hiba", f2,f4.getHozvalok().get(1));
     }
 }
